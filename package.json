@@ -1,0 +1,28 @@
+{
+  "name": "diansan_nodejs",
+  "version": "1.0.1",
+  "description": "A nodejs project build on nodejs-koa powerd by Diansan LTD.",
+  "Keywords": [
+    "diansan",
+    "erp",
+    "nodejs",
+    "koa",
+    "mvc",
+    "framework"
+  ],
+  "main": "src/app.js",
+  "scripts": {
+    "start": "node bin/server.js",
+    "test": "mocha",
+    "dev": "./node_modules/.bin/nodemon bin/server.js"
+  },
+  "author": "wilee",
+  "license": "MIT",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "nodemon": "^1.8.1"
+  },
+  "devDependencies": {
+    "mocha": "^2.4.5"
+  }
+}
