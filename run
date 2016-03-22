@@ -1,0 +1,12 @@
+#!/bin/bash
+
+ROOT_PATH="/data/javascript/node/ds-koa/location/";
+LOG_FILE="$ROOT_PATH/logs/forever.log";
+
+ps -eo pid,command | grep '/usr/local/bin/node' | awk '{print $1}' | xargs kill -QUIT > /dev/null 2>&1
+
+cd $ROOT_PATH && (/usr/sbin/forever --minUptime 5000 --spinSleepTime 1000 -w --watchIgnore logs/* -l $LOG_FILE -a start index.js) 
+
+forever list
+
+
