@@ -17,11 +17,11 @@ let m = module.exports = Controller('address'),
 //搜索市
 let getCitys = function(proId){
 	if(!proId) return false;
-	if(!data.provinces[proId]) return false;
+	if(!data.p[proId]) return false;
 
 	let ret = {};
-	for(let id in data.citys){
-		let city = data.citys[id];
+	for(let id in data.c){
+		let city = data.c[id];
 		if(city.pid == proId){
 			ret[id] = city.name + '';
 		}
@@ -31,8 +31,8 @@ let getCitys = function(proId){
 let getCitysCn = function(proName){
 	if(!proName) return false;
 	let proId = null;
-	for(let id in data.provinces){
-		if(data.provinces[id].name === proName){
+	for(let id in data.p){
+		if(data.p[id].name === proName){
 			proId = id;
 			break;
 		}
@@ -45,11 +45,11 @@ let getCitysCn = function(proName){
 //搜索区县
 let getAreas = function(cityId){
 	if(!cityId) return false;
-	if(!data.citys[cityId]) return false;
+	if(!data.c[cityId]) return false;
 
 	let ret = {};
-	for(let id in data.areas){
-		let area = data.areas[id];
+	for(let id in data.a){
+		let area = data.a[id];
 		if(area.pid == cityId){
 			ret[id] = area.name + '';
 		}
@@ -60,8 +60,8 @@ let getAreas = function(cityId){
 let getAreasCn = function(cityName){
 	if(!cityName) return false;
 	let cityId = null;
-	for(let id in data.citys){
-		if(data.citys[id].name === cityName){
+	for(let id in data.c){
+		if(data.c[id].name === cityName){
 			cityId = id;
 			break;
 		}
@@ -77,8 +77,8 @@ m.define({
 	},
 	getProvinces:function(){
 		let ret = {};
-		for(let id in data.provinces){
-			ret[id] = data.provinces[id].name;
+		for(let id in data.p){
+			ret[id] = data.p[id].name;
 		}
 		this.output.jsonOut(true,'',ret);
 		this.return();
