@@ -22,8 +22,8 @@ let getCitys = function(proId){
 	let ret = {};
 	for(let id in data.c){
 		let city = data.c[id];
-		if(city.pid == proId){
-			ret[id] = city.name + '';
+		if(city.p == proId){
+			ret[id] = city.n + '';
 		}
 	}
 	return ret;
@@ -32,7 +32,7 @@ let getCitysCn = function(proName){
 	if(!proName) return false;
 	let proId = null;
 	for(let id in data.p){
-		if(data.p[id].name === proName){
+		if(data.p[id].n === proName){
 			proId = id;
 			break;
 		}
@@ -50,8 +50,8 @@ let getAreas = function(cityId){
 	let ret = {};
 	for(let id in data.a){
 		let area = data.a[id];
-		if(area.pid == cityId){
-			ret[id] = area.name + '';
+		if(area.p == cityId){
+			ret[id] = area.n + '';
 		}
 	}
 	return ret;
@@ -61,7 +61,7 @@ let getAreasCn = function(cityName){
 	if(!cityName) return false;
 	let cityId = null;
 	for(let id in data.c){
-		if(data.c[id].name === cityName){
+		if(data.c[id].n === cityName){
 			cityId = id;
 			break;
 		}
@@ -78,7 +78,7 @@ m.define({
 	getProvinces:function(){
 		let ret = {};
 		for(let id in data.p){
-			ret[id] = data.p[id].name;
+			ret[id] = data.p[id].n;
 		}
 		this.output.jsonOut(true,'',ret);
 		this.return();
