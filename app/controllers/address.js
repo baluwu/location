@@ -11,7 +11,7 @@ let config = global.config,
 	Controller = util.require.core('controller');
 
 let m = module.exports = Controller('address'),
-	data = util.require.data('areas');
+	data = util.require.data('areas.min');
 
 
 //搜索市
