@@ -14,8 +14,11 @@ let m = module.exports = Controller('webhook');
 
 m.define({
 	index:function(name){
-		let ctl = this;
-		ctl.output.echo('Hello my dear friend : '+(name||'world') + '!');
+		let ctl = this,
+			bModel = util.require.model('system/businessModel').control(518);
+
+		
+
 		ctl.return();
 	},
 	time:function(){

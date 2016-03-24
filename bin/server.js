@@ -6,21 +6,19 @@
  */
 "use strict";
 
-let config = global.config = require('../config/config'),
-    util = global.util = require('../config/util'),
-    app = util.require(config.path.app + 'app'),
-    http = require('http');
+let conf = require('./server.config'),
+    app = require('../app/app'),
+    http = require('http'),
+    server = http.createServer(app.callback());
 
-var server = http.createServer(app.callback());
-
-server.listen(config.site.port);
+server.listen(conf.site.port);
 
 server.on('error', function (error) {
   if (error.syscall !== 'listen') {
     throw error;
   }
 
-  var bind = typeof config.site.port === 'string' ? 'Pipe ' + config.site.port : 'Port ' + config.site.port;
+  var bind = typeof conf.site.port === 'string' ? 'Pipe ' + conf.site.port : 'Port ' + conf.site.port;
 
   // handle specific listen errors with friendly messages
   switch (error.code) {

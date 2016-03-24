@@ -34,7 +34,9 @@ var m  = {
 m.require.core = function(p){return this(config.path.core + p);}
 m.require.config = function(p){return this(config.path.config + p);}
 m.require.controller = function(p){return this(config.path.controllers + p);}
-m.require.data = function(p){return this(config.path.data + p);}
+m.require.data = function(p){return this(config.path.data + p);},
+m.require.lib = function(p){return this(config.path.lib + p);}
+m.require.model = function(p){return this(config.path.models + p);}
 
 m.each(ut,function(k,v){
 	m[k] = function(){ return ut[k].apply(ut,arguments);}

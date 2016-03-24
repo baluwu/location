@@ -16,14 +16,15 @@
     "test": "mocha",
     "dev": "./node_modules/.bin/nodemon bin/server.js"
   },
-  "author": "wilee",
+  "author": "AndyLau",
   "license": "MIT",
   "dependencies": {
     "nodemon": "^1.8.1",
     "mocha": "^2.4.5",
     "co":"^4.6.0",
     "koa":"^1.2.0",
-    "thunkify":"latest"
+    "thunkify":"latest",
+    "mysql":"^2.10.2"
   },
   "devDependencies": {
     "mocha": "^2.4.5"

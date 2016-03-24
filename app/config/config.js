@@ -6,19 +6,16 @@
  */
 "use strict";
 var m = {
-	// 站点相关的配置
-	site: {
-		port: 9587,
-		host:'nodejs.dserp.com'//默认的主机名
-	},
 	// 路径相关配置，相对于根目录
 	path:{
 		_root:process.cwd()+'/',
 		app:'app/',
-		core:'core/',
+		core:'app/core/',
 		bin:'bin/',
-		config:'config/',
+		config:'app/config/',
+		lib:'app/lib/',
 		controllers:'app/controllers/',
+		models:'app/models/',
 		data:'app/data/',
 		static:'static/'
 	},

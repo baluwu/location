@@ -5,8 +5,9 @@
  * @version V1.0.1
  */
 "use strict";
-let config = global.config,
-    util = global.util,
+
+let config = global.config = require('./config/config'),
+    util = global.util = require('./util'),
     koa = require('koa'),
     app = koa(),
     co = require('co'),
@@ -14,6 +15,23 @@ let config = global.config,
     common = util.require.core('common');
 
 module.exports = app;
+
+  // console.dir('a');
+  // let p = new Promise(function(resolve,reject){
+  //     setTimeout(function(){
+  //       resolve(1);
+  //       console.dir('b');
+  //     }, 3000);
+  //     console.dir('c');
+  // });
+  // setTimeout(function(){
+  //   p.then(function(){
+  //     console.dir('e');
+  //   });
+  // }, 10000);
+  
+
+  // console.dir('d');
 
 
   //输入控制
