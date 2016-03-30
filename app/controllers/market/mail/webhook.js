@@ -68,7 +68,7 @@ m.define({
 			filter = {email_id:eid};
 		mod.edit(eData,filter)
 			.then(function(v){
-				ctl.output.echo(mod.last_query());
+				ctl.output.echo('success');
 				ctl.return();
 			})
 			.catch(function(err){
