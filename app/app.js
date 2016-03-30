@@ -35,27 +35,4 @@ module.exports = app;
 
   //路由控制
   app.use(util.require.core('router').callback());
-return;
-  app.use(function *(n){
-    var pData = this.input.post();
-    pData.out = 'out';
-    console.log('/********************************************/');
-    this.output.jsonOut(pData);
-    //console.log('tohere:',pData,this.output.body_str,this.body);
-    yield n;
-  });
-return;
-
-  app.use(function *(next){
-    console.dir('here');
-    var pData = this.input.post();
-    console.dir(pData);
-    yield next;
-  });
-  app.use(function *(){
-    this.body = (this.body||'')+'end';
-  });
-  app.on('error', function(err){
-    log.error('server error', err);
-  });
 
