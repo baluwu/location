@@ -32,6 +32,9 @@ m.define({
 			mth = evt?('on' + evt.toFirstUpperCase()):'';
 		if(mth && ctl[mth]){
 			ctl[mth].call(ctl);
+		}else{
+			ctl.output.echo('Webhook service for mail from sendcloud.sohu.com,powered by Changsha DIANSAN Information Technology CO.,LTD.');
+			ctl.return();
 		}
 	},
 	//发送
