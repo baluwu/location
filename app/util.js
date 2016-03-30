@@ -23,11 +23,20 @@ var m  = {
 	each:function(obj,cb){
 		for(let k in obj){
 			let r = cb(k,obj[k]);
-			if(r===false){
+			if(r===!1){
 				return ;
 				break;
 			}
 		}
+	},
+	isEmpty:function(a){
+		if(m.isArray(a)) return a.length == 0 ? !0:!1;
+		if(m.isObject(a)) {for(let b in a){ return !1;} return !0;}
+		return !1;
+	},
+	timestamp:function(d){
+		d = d? new Date(d):new Date();
+		return d.getTime().toString();
 	}
 }
 //require

@@ -31,11 +31,12 @@ let parseRoutes = function* (paths){
 		args = [],
 		find = false;
 
-	let _segs = segments.concat(['index']);
+	let _segs = segments.concat(['index']),
+		f = '';
 
 	for(let i = 0 ;i<_segs.length;i++){
 		ctl = _segs[i]
-		let f = basepath + dir + ctl + '.js';
+		f = basepath + dir + ctl + '.js';
 
 		let	fe = yield fsExists(f);
 		//console.dir(i+':'+ctl+' => '+_segs[i+1]);
@@ -52,6 +53,7 @@ let parseRoutes = function* (paths){
 	let ret = {
 		segments:segments,
 		dir:dir,
+		file:f,
 		controller:ctl,
 		method:method,
 		args:args,

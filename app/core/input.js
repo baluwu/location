@@ -21,7 +21,8 @@ var m = mw('input');
 					getData = qs.parse(kreq.querystring);
 
 				//get数据
-				ctl.data('getData',getData)
+				ctl.data('getData',getData);
+				ctl.data('postData',{});
 
 				//post数据
 				if(kreq.method == 'POST'){
@@ -34,6 +35,7 @@ var m = mw('input');
 						req.on('end',function(chunk){
 								//console.log('goted post data of input');
 								_pd = qs.parse(_pd)||{};
+								//console.dir(_pd);
 								resolve(_pd);
 						});
 					});

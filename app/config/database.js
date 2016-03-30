@@ -18,7 +18,7 @@ let c = {
 			supportBigNumbers:true,
 			bigNumberStrings:true,
 			//connectTimeout:10000,
-			connectionLimit:199,//最大连接数限制
+			connectionLimit:100,//最大连接数限制,数据库最大连接数为200
 			dbprefix:'e_'			
 		},
 		other0:{

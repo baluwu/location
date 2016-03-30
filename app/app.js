@@ -16,24 +16,17 @@ let config = global.config = require('./config/config'),
 
 module.exports = app;
 
-  // console.dir('a');
-  // let p = new Promise(function(resolve,reject){
-  //     setTimeout(function(){
-  //       resolve(1);
-  //       console.dir('b');
-  //     }, 3000);
-  //     console.dir('c');
-  // });
-  // setTimeout(function(){
-  //   p.then(function(){
-  //     console.dir('e');
-  //   });
-  // }, 10000);
-  
+  //打访问日志
+  app.use(function*(next){
+    let t1 = new Date().getTime();
+    yield next;
+    let t2 = new Date().getTime();
 
-  // console.dir('d');
-
-
+    let s = '[diansan-koa] ' + this.request.method.toUpperCase() + ' ' +
+          this.router.parsed.file + ' ' +
+          'Use Time:' +(t2-t1) + 'ms';
+    console.log(s);
+  });
   //输入控制
   app.use(util.require.core('input').callback());
  

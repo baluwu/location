@@ -34,16 +34,24 @@ let _filterSql = function(filters){
 
 let methods = {
 	query:function(g,sql){
+		let ctl=this;
+		ctl._last_query = sql;
 		let p = new Promise(function(res,rej){
 			db.query(g,sql,function(err,vars,fields){
 				if(err){
-					rej(err);
+					console.error('['+(new Date()).format('Y-m-d H:i:s')+'] MySql Query Error:',err);
+					if(rej(err) !== false){
+						//process.exit(500);
+					}
 				}else{
 					res(vars);
 				}
 			});
 		});
 		return p;
+	},
+	last_query:function(){
+		return this._last_query || '';
 	},
 	pquery:function(sql,cb){
 		let ctl = this,
@@ -79,6 +87,34 @@ let methods = {
 		}
 		if(page){
 			sql += ' LIMIT ' + ((page-1)*pagesize) + ',' + pagesize;
+		}
+		return ctl.query(ctl.dbGrop,sql);
+	},
+	add:function(){
+
+	},
+	edit:function(eData,filter){
+		if(util.isEmpty(eData)){
+			return false;
+		}
+		let ctl = this,
+			sql = 'UPDATE ' + ctl.realTableName ,
+			ups = [];
+		util.each(eData,function(k,v){
+			if(/^i:/.test(v)){
+				v = v.replace(/^i:/,'');
+			}else{
+				v = '\'' + v + '\'';
+			}
+			ups.push(k + ' = ' + v);
+		});
+		sql += ' SET ' + ups.join(',');
+		if(filter){
+			if(util.isObject(filter)){
+				sql += ' WHERE ' + _filterSql(filter);
+			}else if(util.isString(filter)){
+				sql += ' WHERE ' + filter;
+			}
 		}
 		return ctl.query(ctl.dbGrop,sql);
 	}

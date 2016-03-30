@@ -27,7 +27,10 @@ Date.prototype.format = function (fmt) {
 	return fmt;
 }
 
-
+//String对象增加首字母大写飞方法
+String.prototype.toFirstUpperCase = function(){
+	return this.substr(0,1).toUpperCase() + this.substr(1).toLowerCase();
+}
 
 
 
