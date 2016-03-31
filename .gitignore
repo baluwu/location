@@ -1,4 +1,4 @@
 node_modules
 app/config/config.js
-app/config/database.js
+app/config/database*
 logs

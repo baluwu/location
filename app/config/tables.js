@@ -366,17 +366,22 @@ let tables = {
     }
 }
 
+let util = global.util,
+    pris = util.require.config('database').private;//Inherit the function : get private group name
+
 let m = {
 	mainDatabaseId:'default',//主库配置组名
 	//获取分库的配置组名
 	getDatabaseGroupId:function(bid){
-		if(!bid || !parseInt(bid)) return m.mainDatabaseId;
-		return 'other' + (parseInt(bid) % 10);
+        if(!bid || !parseInt(bid)) return m.mainDatabaseId;
+		if(!!pris(bid) return pris(bid);//私云数据库组
+        return 'other' + (parseInt(bid) % 10);
 	},
 	getTableName:function(t,bid){
-		t = t.replace(/\_\d+$/,'');
+        t = t.replace(/\_\d+$/,'');
 		let op = tables[t];
-		if(!op) return t;
+		if(!op) return t;//主库表不分
+        if(!!pris(bid)) return t;//私云版不分
 		switch(op.n){
 			case 1://只分库，未分表
 				break;
@@ -398,22 +403,22 @@ let m = {
 		return t;
 	},
 	fetchTable:function(t,bid){
-		t = t.replace(/\_\d+$/,'');
+        t = t.replace(/\_\d+$/,'');
 		let op = tables[t];
 		if(!op){
 			//返回主库
 			return {
-					e:false,//未分库，属于主库
+					e:!1,//未分库，属于主库
 					t:t,
 					d:m.mainDatabaseId
 				}
 		}else{
-			//分库
 			return {
-					e:true,//有分库
+					e:!0,//有分库
 					d:m.getDatabaseGroupId(bid),
 					t:m.getTableName(t,bid)
 				}
+            
 		}
 	},
 	fetchSql:function(sql,bid){

@@ -53,10 +53,10 @@ let methods = {
 	last_query:function(){
 		return this._last_query || '';
 	},
-	pquery:function(sql,cb){
+	pquery:function(sql){
 		let ctl = this,
 			bid = ctl.business_id,
-			f = tables.fetchSql(sql);
+			f = tables.fetchSql(sql,bid);
 		return ctl.query(f.g,f.sql);
 	},
 	getOne:function(filter,cols){
