@@ -374,7 +374,7 @@ let m = {
 	//获取分库的配置组名
 	getDatabaseGroupId:function(bid){
         if(!bid || !parseInt(bid)) return m.mainDatabaseId;
-		if(!!pris(bid) return pris(bid);//私云数据库组
+		if(!!pris(bid)) return pris(bid);//私云数据库组
         return 'other' + (parseInt(bid) % 10);
 	},
 	getTableName:function(t,bid){
