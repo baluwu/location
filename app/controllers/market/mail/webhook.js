@@ -21,7 +21,8 @@ let sts = {
 	'report_spam':{v:5,n:'垃圾举报'},
 	'invalid'	:	{v:6,n:'无效邮件'}
 }
-let logMod = util.require.model('market/mailLogModel');
+let logMod = util.require.model('market/mailLogModel'),
+	sLogMod = util.require.model('custom/serviceMailLogModel');
 
 let m = module.exports = Controller('webhook');
 
@@ -29,8 +30,12 @@ m.define({
 	index:function(name){
 		let ctl = this,
 			evt = ctl.input.post('event'),
-			mth = evt?('on' + evt.toFirstUpperCase()):'';
+			mth = evt?('on' + evt.toFirstUpperCase()):'',
+			uhs = JSON.parse(ctl.input.post('userHeaders'))||{};
 		if(mth && ctl[mth]){
+			ctl.mailType = uhs['SC-Custom-Type'];
+			ctl.logMod = ctl.mailType === 'service'?sLogMod.control():logMod.control();
+			
 			ctl[mth].call(ctl);
 		}else{
 			ctl.output.echo('Webhook service for mail from sendcloud.sohu.com,powered by Changsha DIANSAN Information Technology CO.,LTD.');
@@ -40,7 +45,6 @@ m.define({
 	//发送
 	onDeliver:function(){
 		let ctl = this,
-			mod = logMod.control(),
 			eid = ctl.input.post('emailId'),
 			timestamp = (ctl.input.post('timestamp')||util.timestamp()).substr(0,10),
 			eData = {
@@ -48,7 +52,7 @@ m.define({
 				send_time:timestamp
 			},
 			filter = {email_id:eid};
-		mod.edit(eData,filter)
+		ctl.logMod.edit(eData,filter)
 			.then(function(v){
 				ctl.output.echo('success');
 				ctl.return();
@@ -61,7 +65,6 @@ m.define({
 	//打开
 	onOpen:function(){
 		let ctl = this,
-			mod = logMod.control(),
 			eid = ctl.input.post('emailId'),
 			timestamp = (ctl.input.post('timestamp')||util.timestamp()).substr(0,10),
 			eData = {
@@ -69,7 +72,7 @@ m.define({
 				read_time:timestamp
 			},
 			filter = {email_id:eid};
-		mod.edit(eData,filter)
+		ctl.logMod.edit(eData,filter)
 			.then(function(v){
 				ctl.output.echo('success');
 				ctl.return();
@@ -82,7 +85,6 @@ m.define({
 	//点击
 	onClick:function(){
 		let ctl = this,
-			mod = logMod.control(),
 			eid = ctl.input.post('emailId'),
 			timestamp = (ctl.input.post('timestamp')||util.timestamp()).substr(0,10),
 			eData = {
@@ -90,7 +92,7 @@ m.define({
 				click_time:timestamp
 			},
 			filter = {email_id:eid};
-		mod.edit(eData,filter)
+		ctl.logMod.edit(eData,filter)
 			.then(function(v){
 				ctl.output.echo('success');
 				ctl.return();
@@ -103,13 +105,12 @@ m.define({
 	//取消订阅
 	onUnsubscribe:function(){
 		let ctl = this,
-			mod = logMod.control(),
 			eid = ctl.input.post('emailId'),
 			eData = {
 				status:sts.unsubscribe.v
 			},
 			filter = {email_id:eid};
-		mod.edit(eData,filter)
+		ctl.logMod.edit(eData,filter)
 			.then(function(v){
 				ctl.output.echo('success');
 				ctl.return();
@@ -122,13 +123,12 @@ m.define({
 	//软退信
 	onBounce:function(){
 		let ctl = this,
-			mod = logMod.control(),
 			eid = ctl.input.post('emailId'),
 			eData = {
 				status:sts.bounce.v
 			},
 			filter = {email_id:eid};
-		mod.edit(eData,filter)
+		ctl.logMod.edit(eData,filter)
 			.then(function(v){
 				ctl.output.echo('success');
 				ctl.return();
@@ -141,13 +141,12 @@ m.define({
 	//垃圾举报
 	onReport_spam:function(){
 		let ctl = this,
-			mod = logMod.control(),
 			eid = ctl.input.post('emailId'),
 			eData = {
 				status:sts.report_spam.v
 			},
 			filter = {email_id:eid};
-		mod.edit(eData,filter)
+		ctl.logMod.edit(eData,filter)
 			.then(function(v){
 				ctl.output.echo('success');
 				ctl.return();
@@ -160,13 +159,12 @@ m.define({
 	//无效邮件
 	onInvalid:function(){
 		let ctl = this,
-			mod = logMod.control(),
 			eid = ctl.input.post('emailId'),
 			eData = {
 				status:sts.invalid.v
 			},
 			filter = {email_id:eid};
-		mod.edit(eData,filter)
+		ctl.logMod.edit(eData,filter)
 			.then(function(v){
 				ctl.output.echo('success');
 				ctl.return();
