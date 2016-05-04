@@ -46,10 +46,12 @@ var m = mw('input');
 	//定义方法
 	m.define({
 		get:function(k){
-			return k? this.data('getData')[k]:this.data('getData');
+			let d = k? this.data('getData')[k]:this.data('getData');
+			return d === undefined? !1 : d;
 		},
 		post:function(k){
-			return k? this.data('postData')[k]:this.data('postData');
+			let d = k? this.data('postData')[k]:this.data('postData');
+			return d === undefined? !1 : d;
 		}
 	});
 

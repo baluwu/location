@@ -31,11 +31,12 @@ m.define({
 		let ctl = this,
 			evt = ctl.input.post('event'),
 			mth = evt?('on' + evt.toFirstUpperCase()):'',
-			uhs = JSON.parse(ctl.input.post('userHeaders'))||{};
+			uhs = ctl.input.post('userHeaders');
+		uhs = uhs?JSON.parse(uhs):{};
+		console.log(ctl.input.post('userHeaders'),uhs);
 		if(mth && ctl[mth]){
 			ctl.mailType = uhs['SC-Custom-Type'];
 			ctl.logMod = ctl.mailType === 'service'?sLogMod.control():logMod.control();
-			
 			ctl[mth].call(ctl);
 		}else{
 			ctl.output.echo('Webhook service for mail from sendcloud.sohu.com,powered by Changsha DIANSAN Information Technology CO.,LTD.');
